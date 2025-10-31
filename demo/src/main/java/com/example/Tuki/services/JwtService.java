@@ -1,6 +1,6 @@
-package Services;
+package com.example.Tuki.services;
 
-import Entitys.Usuario;
+import com.example.Tuki.Entitys.Usuario;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +26,7 @@ public class JwtService {
     // 🧾 Genera el token JWT con claims personalizados
     public String generarToken(Usuario usuario) {
         return Jwts.builder()
-                .setSubject(usuario.getCorreo()) // identificador principal
+                .setSubject(usuario.getEmail()) // identificador principal
                 .claim("id", usuario.getId())    // datos adicionales
                 .claim("rol", usuario.getRol())
                 .setIssuedAt(new Date())         // fecha de emisión

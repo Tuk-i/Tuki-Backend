@@ -1,8 +1,8 @@
-package Entitys;
+package com.example.Tuki.Entitys;
 
 
+import com.example.Tuki.Entitys.Enum.Rol;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity

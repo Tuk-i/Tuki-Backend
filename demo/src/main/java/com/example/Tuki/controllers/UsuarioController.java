@@ -1,7 +1,7 @@
-package Controler;
+package com.example.Tuki.controllers;
 
-import Entitys.Usuario;
-import Services.UsuarioService;
+import com.example.Tuki.Entitys.Usuario;
+import com.example.Tuki.services.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

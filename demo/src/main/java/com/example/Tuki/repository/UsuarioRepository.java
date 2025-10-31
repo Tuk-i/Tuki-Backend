@@ -1,6 +1,6 @@
-package Repository;
+package com.example.Tuki.repository;
 
-import Entitys.Usuario;
+import com.example.Tuki.Entitys.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

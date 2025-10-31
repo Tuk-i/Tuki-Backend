@@ -1,7 +1,7 @@
-package Services;
+package com.example.Tuki.services;
 
-import Entitys.Usuario;
-import Repository.UsuarioRepository;
+import com.example.Tuki.Entitys.Usuario;
+import com.example.Tuki.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
