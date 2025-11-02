@@ -1,15 +1,15 @@
 package com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs.Mappers;
 
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Enum.Rol;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs.UsuarioDTO;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs.UsuarioPostDTO;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs.UsuarioRespuestaDTO;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs.UsuarioInputDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Usuario;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UsuarioMapper implements BaseMapper<Usuario, UsuarioPostDTO, UsuarioDTO> {
+public class UsuarioMapper implements BaseMapper<Usuario, UsuarioInputDTO, UsuarioRespuestaDTO> {
     @Override
-    public Usuario dtoToEntity(UsuarioPostDTO usuarioPostDTO) {
+    public Usuario dtoToEntity(UsuarioInputDTO usuarioPostDTO) {
         Usuario usuario = new Usuario();
         usuario.setEmail(usuarioPostDTO.email());
         usuario.setPassword(usuarioPostDTO.password());
@@ -18,8 +18,16 @@ public class UsuarioMapper implements BaseMapper<Usuario, UsuarioPostDTO, Usuari
     }
 
     @Override
-    public UsuarioDTO entityToDTO(Usuario entidad) {
-        UsuarioDTO dto = new UsuarioDTO(entidad.getEmail(), entidad.getPassword(), entidad.getRol());
+    public UsuarioRespuestaDTO entityToDTO(Usuario entidad) {
+        UsuarioRespuestaDTO dto = new UsuarioRespuestaDTO(entidad.getId(),entidad.getEmail(), entidad.getRol());
         return dto;
     }
+
+    @Override
+    public void actualizarEntidad(Usuario usuario, UsuarioInputDTO dto) {
+        usuario.setEmail(dto.email());
+        usuario.setPassword(dto.password());
+    }
+
+
 }

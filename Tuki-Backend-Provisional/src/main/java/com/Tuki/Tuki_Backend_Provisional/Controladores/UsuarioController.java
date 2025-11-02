@@ -1,15 +1,19 @@
 package com.Tuki.Tuki_Backend_Provisional.Controladores;
 
-import com.Tuki.Tuki_Backend_Provisional.Entidades.Categoria;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs.UsuarioDTO;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs.UsuarioPostDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Usuario;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs.ErrorDTO;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs.UsuarioRespuestaDTO;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs.UsuarioInputDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs.Mappers.UsuarioMapper;
 import com.Tuki.Tuki_Backend_Provisional.Servicios.UsuarioServiceIMP;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -20,31 +24,45 @@ public class UsuarioController {
     @Autowired
     UsuarioServiceIMP usuarioServiceIMP;
 
-    @GetMapping
-    public List<UsuarioDTO> getAll(){
-        return usuarioServiceIMP.listar();
+    @GetMapping("/activos")
+    public List<UsuarioRespuestaDTO> listarActivos(){
+        return usuarioServiceIMP.listarActivos();
     }
 
-    @PostMapping
-    public UsuarioDTO create(@RequestBody UsuarioPostDTO dto){
-        return usuarioServiceIMP.crear(dto);
+    @GetMapping("/eliminados")
+    public List<UsuarioRespuestaDTO> listarEliminados(){
+        return usuarioServiceIMP.listarEliminados();
+    }
+
+    @GetMapping("/todos")
+    public List<UsuarioRespuestaDTO> listarTodos(){
+        return usuarioServiceIMP.listarTodos();
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<?> create(@Valid @RequestBody UsuarioInputDTO dto){
+        return usuarioServiceIMP.registrar(dto);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@Valid @RequestBody UsuarioInputDTO dto){
+        return usuarioServiceIMP.login(dto);
     }
 
 
     @PutMapping("/{id}")
-    public Usuario update(@PathVariable Long id, @RequestBody Usuario usuario){
-        usuario.setId(id);
-        return null;
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody UsuarioInputDTO dto){
+        return usuarioServiceIMP.editar(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
-//        repo.deleteById(id);
-
-        //buscamos elementos por id
-//        Categoria categoria = new Categoria(); // aca la categoria
-//        categoria.setEliminado(true);
-//        categoria.eliminarTodosLosProductos();
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        Optional<Usuario> eliminado = usuarioServiceIMP.eliminar(id);
+        if (eliminado.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorDTO("Usuario no encontrado"));
+        }
+        return ResponseEntity.ok().body("Usuario marcado como eliminado");
     }
 
 }
