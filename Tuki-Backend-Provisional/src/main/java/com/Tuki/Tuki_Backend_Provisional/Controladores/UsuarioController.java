@@ -1,10 +1,10 @@
 package com.Tuki.Tuki_Backend_Provisional.Controladores;
 
+import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.UsuarioDTOs.UsuarioUpdateDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Usuario;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs.ErrorDTO;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs.UsuarioRespuestaDTO;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs.UsuarioInputDTO;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs.Mappers.UsuarioMapper;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.ErrorDTO;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.UsuarioDTOs.UsuarioRespuestaDTO;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.UsuarioDTOs.UsuarioPostDTO;
 import com.Tuki.Tuki_Backend_Provisional.Servicios.UsuarioServiceIMP;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
-    @Autowired
-    UsuarioMapper mapper;
 
     @Autowired
     UsuarioServiceIMP usuarioServiceIMP;
@@ -40,18 +38,22 @@ public class UsuarioController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@Valid @RequestBody UsuarioInputDTO dto){
+    public ResponseEntity<?> create(@Valid @RequestBody UsuarioPostDTO dto){
         return usuarioServiceIMP.registrar(dto);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody UsuarioInputDTO dto){
+    public ResponseEntity<?> login(@Valid @RequestBody UsuarioPostDTO dto){
         return usuarioServiceIMP.login(dto);
     }
 
+    @PatchMapping("/{id}/reactivar")
+    public ResponseEntity<?> reactivar(@PathVariable Long id) {
+        return usuarioServiceIMP.reactivar(id);
+    }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody UsuarioInputDTO dto){
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody UsuarioUpdateDTO dto){
         return usuarioServiceIMP.editar(id, dto);
     }
 

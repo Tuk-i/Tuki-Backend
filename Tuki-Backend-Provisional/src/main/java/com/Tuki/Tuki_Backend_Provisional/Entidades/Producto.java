@@ -1,8 +1,6 @@
 package com.Tuki.Tuki_Backend_Provisional.Entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -12,9 +10,11 @@ import lombok.*;
 @Getter
 @Setter
 @EqualsAndHashCode
+@Table(name = "producto", uniqueConstraints = @UniqueConstraint(columnNames = {"nombre", "categoria_id"}))
 public class Producto extends Base{
     private String nombre;
-    private Double precio;
+    private String descripcion;
+    private double precio;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")
@@ -22,7 +22,9 @@ public class Producto extends Base{
 
 
 
-    public void agregarProducto(){
+    public void vincularConCategoria(Categoria categoria) {
+        this.categoria = categoria;
         categoria.agregrarProducto(this);
     }
+
 }

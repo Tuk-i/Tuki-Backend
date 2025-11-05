@@ -1,4 +1,4 @@
-package com.Tuki.Tuki_Backend_Provisional.Entidades.UsuarioDTOs;
+package com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.UsuarioDTOs;
 
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Enum.Rol;
 

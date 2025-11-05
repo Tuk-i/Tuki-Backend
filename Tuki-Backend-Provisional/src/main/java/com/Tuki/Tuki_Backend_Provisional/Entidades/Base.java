@@ -14,5 +14,5 @@ public abstract class Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Boolean eliminado = false;
+    protected Boolean eliminado = false;
 }

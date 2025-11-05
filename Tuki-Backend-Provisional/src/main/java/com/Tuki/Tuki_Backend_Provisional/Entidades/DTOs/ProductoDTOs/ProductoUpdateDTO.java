@@ -1,0 +1,18 @@
+package com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.ProductoDTOs;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record ProductoUpdateDTO(
+        @NotBlank(message = "El nombre no puede estar vacío")
+        String nombre,
+
+        @NotBlank(message = "La descripción no puede estar vacía")
+        String descripcion,
+
+        @NotNull(message = "El precio es obligatorio")
+        Double precio,
+
+        @NotNull(message = "La categoría es obligatoria")
+        Long categoriaId
+) {}
