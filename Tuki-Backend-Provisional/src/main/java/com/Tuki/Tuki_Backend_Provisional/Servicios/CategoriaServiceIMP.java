@@ -56,7 +56,7 @@ public class CategoriaServiceIMP extends BaseServiceImpl<Categoria, Long, Catego
 
     // Fucion que crea una instancia de CategoriaRespuestaDTO
     private CategoriaRespuestaDTO construirCategoriaRespuesta(Categoria categoria, Function<Long, List<ProductoRespuestaDTO>> buscarProductos){
-        return new CategoriaRespuestaDTO(categoria.getId(), categoria.getNombre(), categoria.getDescripcion(), buscarProductos.apply(categoria.getId()));
+        return new CategoriaRespuestaDTO(categoria.getId(), categoria.getNombre(), categoria.getDescripcion(), categoria.getUrlImagen(), buscarProductos.apply(categoria.getId()));
     }
 
 

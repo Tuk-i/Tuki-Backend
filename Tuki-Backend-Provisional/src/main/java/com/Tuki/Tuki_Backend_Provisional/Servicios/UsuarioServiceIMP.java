@@ -1,5 +1,6 @@
 package com.Tuki.Tuki_Backend_Provisional.Servicios;
 
+import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.UsuarioDTOs.UsuarioLoginDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Usuario;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.ErrorDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.Mappers.UsuarioMapper;
@@ -33,7 +34,7 @@ public class UsuarioServiceIMP extends BaseServiceImpl<Usuario, Long, UsuarioPos
 
 
     @Override
-    public ResponseEntity<?> login(UsuarioPostDTO dto) {
+    public ResponseEntity<?> login(UsuarioLoginDTO dto) {
         Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(dto.email());
 
         if (usuarioOpt.isEmpty() || !usuarioOpt.get().getPassword().equals(dto.password())) {

@@ -14,12 +14,14 @@ public class ProductoMapper implements BaseMapper<Producto, ProductoPostDTO, Pro
         producto.setNombre(dtocreate.nombre());
         producto.setDescripcion(dtocreate.descripcion());
         producto.setPrecio(dtocreate.precio());
+        producto.setStock(dtocreate.stock());
+        producto.setUrlImagen(dtocreate.urlImagen());
         return producto;
     }
 
     @Override
     public ProductoRespuestaDTO entityToDTO(Producto producto) {
-        return new ProductoRespuestaDTO(producto.getId(), producto.getNombre(), producto.getPrecio(),producto.getCategoria().getNombre());
+        return new ProductoRespuestaDTO(producto.getId(), producto.getNombre(), producto.getPrecio(),producto.getStock(), producto.getUrlImagen(), producto.getCategoria().getNombre());
     }
 
     @Override
@@ -35,6 +37,15 @@ public class ProductoMapper implements BaseMapper<Producto, ProductoPostDTO, Pro
         if (dto.precio() != null && !dto.precio().equals(producto.getPrecio())) {
             producto.setPrecio(dto.precio());
         }
+
+        if (dto.stock() != null && !dto.stock().equals(producto.getStock())) {
+            producto.setStock(dto.stock());
+        }
+
+        if (dto.urlImagen() != null && !dto.urlImagen().isBlank() && !dto.urlImagen().equals(producto.getUrlImagen())) {
+            producto.setUrlImagen(dto.urlImagen());
+        }
+
 
     }
 }

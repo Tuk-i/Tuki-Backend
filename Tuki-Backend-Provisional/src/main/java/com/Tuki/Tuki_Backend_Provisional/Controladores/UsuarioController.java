@@ -1,5 +1,6 @@
 package com.Tuki.Tuki_Backend_Provisional.Controladores;
 
+import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.UsuarioDTOs.UsuarioLoginDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.UsuarioDTOs.UsuarioUpdateDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Usuario;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.ErrorDTO;
@@ -42,7 +43,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody UsuarioPostDTO dto){
+    public ResponseEntity<?> login(@Valid @RequestBody UsuarioLoginDTO dto){
         return usuarioServiceIMP.login(dto);
     }
 

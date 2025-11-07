@@ -17,6 +17,7 @@ public class Categoria extends Base{
     @Column(unique = true, nullable = false)
     private String nombre;
     private String descripcion;
+    private String urlImagen;
 
 
 //    @OneToMany(mappedBy = "categoria", fetch = FetchType.EAGER)

@@ -7,5 +7,7 @@ public record CategoriaPostDTO(
         String nombre,
 
         @NotBlank(message = "La descripción no puede estar vacía")
-        String descripcion
-) {}
+        String descripcion,
+
+        String urlImagen
+){}
