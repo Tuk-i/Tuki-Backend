@@ -1,4 +1,4 @@
-package com.Tuki.Tuki_Backend_Provisional.Configs;
+package com.Tuki.Tuki_Backend_Provisional.CosasUtilesImportantes;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

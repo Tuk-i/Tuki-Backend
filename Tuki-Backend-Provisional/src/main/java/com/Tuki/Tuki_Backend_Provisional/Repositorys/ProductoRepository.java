@@ -13,6 +13,9 @@ public interface ProductoRepository extends BaseRepository<Producto, Long>  {
     List<Producto> findByCategoriaIdOrderByIdAsc(Long categoriaId);
 
     boolean existsByNombreAndCategoriaId(String nombre, Long categoriaId);
-    Optional<Producto> findByNombreAndCategoriaId(String nombre, Long categoriaId);
+
+    boolean existsByNombreAndCategoriaIdAndIdNot(String nombre, Long categoriaId, Long id);
+
+//    Optional<Producto> findByNombreAndCategoriaId(String nombre, Long categoriaId);
 
 }

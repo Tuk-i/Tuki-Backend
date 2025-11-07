@@ -4,6 +4,6 @@ import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.ProductoDTOs.ProductoRes
 
 import java.util.List;
 
-public record CategoriaRespuestaDTO(Long id, String nombre, String descripcion, List<ProductoRespuestaDTO> productoRespuestaDTOSet) {
+public record CategoriaRespuestaDTO(Long id, String nombre, String descripcion, List<ProductoRespuestaDTO> productoRespuestaDTOS) {
 
 }

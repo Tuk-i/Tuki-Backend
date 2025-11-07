@@ -21,20 +21,27 @@ public class Categoria extends Base{
 
 //    @OneToMany(mappedBy = "categoria", fetch = FetchType.EAGER)
 //    @OneToMany(mappedBy = "categoria", cascade = (CascadeType.REFRESH))
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "categoria")
     @Builder.Default
     private List<Producto> productos = new ArrayList<>();
 
 
     public void agregrarProducto(Producto p){
-        productos.add(p);
-    }
-
-    public void eliminarTodosLosProductos(){
-        for (Producto p: productos){
-            p.setEliminado(true);
+        if (!productos.contains(p)) {
+            productos.add(p);
         }
     }
+
+
+    public void eliminarTodosLosProductos(){
+        if (productos != null) {
+            for (Producto p : productos){
+                p.setEliminado(true);
+            }
+        }
+    }
+
 
     @Override
     public void setEliminado(Boolean valor){

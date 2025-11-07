@@ -13,8 +13,10 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
 public class Usuario extends Base {
+
+    @Column(unique = true, nullable = false)
+    private String nombre;
 
     @Column(unique = true, nullable = false)
     private String email;

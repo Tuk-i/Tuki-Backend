@@ -12,6 +12,7 @@ public class UsuarioMapper implements BaseMapper<Usuario, UsuarioPostDTO, Usuari
     @Override
     public Usuario dtoToEntity(UsuarioPostDTO usuarioPostDTO) {
         Usuario usuario = new Usuario();
+        usuario.setNombre(usuarioPostDTO.nombre());
         usuario.setEmail(usuarioPostDTO.email());
         usuario.setPassword(usuarioPostDTO.password());
         usuario.setRol(Rol.CLIENTE);
@@ -20,11 +21,15 @@ public class UsuarioMapper implements BaseMapper<Usuario, UsuarioPostDTO, Usuari
 
     @Override
     public UsuarioRespuestaDTO entityToDTO(Usuario entidad) {
-        return new UsuarioRespuestaDTO(entidad.getId(),entidad.getEmail(), entidad.getRol());
+        return new UsuarioRespuestaDTO(entidad.getId(),entidad.getNombre(),entidad.getEmail(), entidad.getRol());
     }
 
     @Override
     public void actualizarEntidad(Usuario usuario, UsuarioUpdateDTO dto) {
+
+        if (dto.nombre() != null && !dto.nombre().isBlank() && !dto.nombre().equals(usuario.getNombre())){
+            usuario.setNombre(dto.nombre());
+        }
 
         if (dto.email() != null && !dto.email().isBlank() && !dto.email().equals(usuario.getEmail())){
             usuario.setEmail(dto.email());

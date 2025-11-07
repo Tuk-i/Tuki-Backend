@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
 @Table(name = "producto", uniqueConstraints = @UniqueConstraint(columnNames = {"nombre", "categoria_id"}))
 public class Producto extends Base{
     private String nombre;

@@ -21,6 +21,10 @@ public class UsuarioController {
 
     @Autowired
     UsuarioServiceIMP usuarioServiceIMP;
+    @GetMapping()
+    public List<UsuarioRespuestaDTO> listarTodos(){
+        return usuarioServiceIMP.listarTodos();
+    }
 
     @GetMapping("/activos")
     public List<UsuarioRespuestaDTO> listarActivos(){
@@ -30,11 +34,6 @@ public class UsuarioController {
     @GetMapping("/eliminados")
     public List<UsuarioRespuestaDTO> listarEliminados(){
         return usuarioServiceIMP.listarEliminados();
-    }
-
-    @GetMapping("/todos")
-    public List<UsuarioRespuestaDTO> listarTodos(){
-        return usuarioServiceIMP.listarTodos();
     }
 
     @PostMapping("/create")
@@ -58,13 +57,9 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
-        Optional<Usuario> eliminado = usuarioServiceIMP.eliminar(id);
-        if (eliminado.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ErrorDTO("Usuario no encontrado"));
-        }
-        return ResponseEntity.ok().body("Usuario marcado como eliminado");
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        usuarioServiceIMP.eliminar(id); // ya lanza excepción si no existe
+        return ResponseEntity.ok("Usuario marcado como eliminado");
     }
 
 }

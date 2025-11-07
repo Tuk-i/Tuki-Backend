@@ -19,7 +19,7 @@ public class ProductoMapper implements BaseMapper<Producto, ProductoPostDTO, Pro
 
     @Override
     public ProductoRespuestaDTO entityToDTO(Producto producto) {
-        return new ProductoRespuestaDTO(producto.getId(), producto.getNombre(), producto.getPrecio(),producto.getCategoria());
+        return new ProductoRespuestaDTO(producto.getId(), producto.getNombre(), producto.getPrecio(),producto.getCategoria().getNombre());
     }
 
     @Override

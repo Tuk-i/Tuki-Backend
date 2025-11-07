@@ -1,7 +1,6 @@
 package com.Tuki.Tuki_Backend_Provisional.Servicios;
 
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Base;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.ErrorDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.Mappers.BaseMapper;
 import com.Tuki.Tuki_Backend_Provisional.Repositorys.BaseRepository;
 import com.Tuki.Tuki_Backend_Provisional.Servicios.IntefacesServicios.BaseService;
@@ -20,29 +19,11 @@ public abstract class BaseServiceImpl<E extends Base, Long, DTOPost, DTOUpdate, 
     @Autowired
     BaseMapper<E,DTOPost, DTOUpdate, DTOrespueta> baseMapper;
 
-
-    protected ResponseEntity<?> registrarConValidacion( boolean existe, String mensajeError, DTOPost dto) {
-
-        if (existe) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDTO(mensajeError));
-        }
-
-        DTOrespueta creado = crear(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(creado);
-    }
-
-    protected ResponseEntity<?> editarConValidacion(Optional<? extends Base> existente, Long id, String mensajeError, DTOUpdate dto
-    ) {
-        if (existente.isPresent() && !existente.get().getId().equals(id)) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDTO(mensajeError));
-        }
-
-        DTOrespueta actualizado = actualizar(id, dto);
-        return ResponseEntity.ok(actualizado);
-    }
-
-
-
+    @Override
+    public E buscarPorId(Long id){
+        return baseRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontro"));
+    };
 
     @Override
     public List<DTOrespueta> listarTodos(){
@@ -65,7 +46,13 @@ public abstract class BaseServiceImpl<E extends Base, Long, DTOPost, DTOUpdate, 
                 .toList();
     }
 
-
+    // Metodo que verifica si Existe la entidad en la base de datos
+    protected DTOrespueta registrarConValidacion(boolean existe, String mensajeError, DTOPost dto) {
+        if (existe) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, mensajeError);
+        }
+        return crear(dto);
+    }
 
     @Override
     public DTOrespueta crear(DTOPost dtOcreate) {
@@ -90,33 +77,22 @@ public abstract class BaseServiceImpl<E extends Base, Long, DTOPost, DTOUpdate, 
 
 
     @Override
-    public Optional<E> eliminar(Long id){
-        Optional<E> entidadOpt = baseRepository.findById(id);
-        if (entidadOpt.isEmpty()){
-            return Optional.empty();
-        }
-
-        E entidad = entidadOpt.get();
-
+    public E eliminar(Long id) {
+        E entidad = baseRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Entidad no encontrada con id: " + id));
         entidad.setEliminado(true);
-
         entidad = baseRepository.save(entidad);
-        return Optional.of(entidad);
+
+        return entidad;
     }
 
+
+    @Override
     public ResponseEntity<?> reactivar(Long id) {
-        Optional<E> entidadOpt = baseRepository.findById(id);
-
-        if (entidadOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ErrorDTO( "Estado: inexistente"));
-        }
-
-        E entidad = entidadOpt.get();
+        E entidad = buscarPorId(id);
 
         if (!entidad.getEliminado()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new ErrorDTO("Estado: Activado"));
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Estado: Activado");
         }
 
         entidad.setEliminado(false);
@@ -124,5 +100,27 @@ public abstract class BaseServiceImpl<E extends Base, Long, DTOPost, DTOUpdate, 
 
         return ResponseEntity.ok(baseMapper.entityToDTO(entidad));
     }
+
+
+//    public ResponseEntity<?> reactivar(Long id) {
+//        Optional<E> entidadOpt = baseRepository.findById(id);
+//
+//        if (entidadOpt.isEmpty()) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                    .body(new ErrorDTO( "Estado: inexistente", ex.getStatusCode().value()));
+//        }
+//
+//        E entidad = entidadOpt.get();
+//
+//        if (!entidad.getEliminado()) {
+//            return ResponseEntity.status(HttpStatus.CONFLICT)
+//                    .body(new ErrorDTO("Estado: Activado", ex.getStatusCode().value()));
+//        }
+//
+//        entidad.setEliminado(false);
+//        baseRepository.save(entidad);
+//
+//        return ResponseEntity.ok(baseMapper.entityToDTO(entidad));
+//    }
 
 }
