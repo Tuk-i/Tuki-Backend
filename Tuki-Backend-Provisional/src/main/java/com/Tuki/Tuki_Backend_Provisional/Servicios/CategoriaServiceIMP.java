@@ -41,7 +41,6 @@ public class CategoriaServiceIMP extends BaseServiceImpl<Categoria, Long, Catego
         return productoServiceIMP.productosListarEliminados(id);
     }
 
-
     // Funcion que crea que crea una lista de CategoriaRespuestaDTO junto con la lista de productos pertienentes
     private List<CategoriaRespuestaDTO> construirRespuesta(List<Categoria> categorias,  Function<Long, List<ProductoRespuestaDTO>> buscarProductos
     ){

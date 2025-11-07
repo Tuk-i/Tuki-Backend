@@ -80,9 +80,7 @@ public class ProductoServiceIMP extends BaseServiceImpl<Producto, Long, Producto
     public ResponseEntity<?> editar(Long id, ProductoUpdateDTO dto) {
         Producto producto = buscarPorId(id);
 
-        boolean duplicado = productoRepository.existsByNombreAndCategoriaIdAndIdNot(
-                dto.nombre(), dto.categoriaId(), id
-        );
+        boolean duplicado = productoRepository.existsByNombreAndCategoriaIdAndIdNot(dto.nombre(), dto.categoriaId(), id);
 
         if (duplicado) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Ya existe un producto con ese nombre en esta categoría");

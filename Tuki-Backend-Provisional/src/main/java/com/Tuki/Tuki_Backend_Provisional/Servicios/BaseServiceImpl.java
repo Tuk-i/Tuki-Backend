@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 public abstract class BaseServiceImpl<E extends Base, Long, DTOPost, DTOUpdate, DTOrespueta> implements BaseService<E, Long, DTOPost, DTOUpdate, DTOrespueta> {
 
@@ -63,23 +62,20 @@ public abstract class BaseServiceImpl<E extends Base, Long, DTOPost, DTOUpdate, 
 
 
     @Override
-    public DTOrespueta actualizar(Long id, DTOUpdate dtOmodicador) {
-        Optional<E> entidadOpt = baseRepository.findById(id);
-        if (entidadOpt.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Entidad no encontrada con id: " + id);
-        }
+    public DTOrespueta actualizar(Long id, DTOUpdate dto) {
+        E entidad = buscarPorId(id);
 
-        E entidad = entidadOpt.get();
-        baseMapper.actualizarEntidad(entidad, dtOmodicador);
+        baseMapper.actualizarEntidad(entidad, dto);
         entidad = baseRepository.save(entidad);
+
         return baseMapper.entityToDTO(entidad);
     }
 
 
     @Override
     public E eliminar(Long id) {
-        E entidad = baseRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Entidad no encontrada con id: " + id));
+        E entidad = buscarPorId(id);
+
         entidad.setEliminado(true);
         entidad = baseRepository.save(entidad);
 

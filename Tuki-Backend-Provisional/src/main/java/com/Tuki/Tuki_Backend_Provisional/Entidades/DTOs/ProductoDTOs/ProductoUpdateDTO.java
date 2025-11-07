@@ -8,5 +8,6 @@ public record ProductoUpdateDTO(
         String descripcion,
         Double precio,
         Long stock,
-        String urlImagen
+        String urlImagen,
+        Long categoriaId
 ){}
