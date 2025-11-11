@@ -1,6 +1,6 @@
 package com.Tuki.Tuki_Backend_Provisional.Controladores;
 
-import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.Carrito.CarritoDTO;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.CarritoDTOs.CarritoDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.PedidoDTOs.PedidoRespuestaDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.PedidoDTOs.PedidoUpdateDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Enum.Estado;

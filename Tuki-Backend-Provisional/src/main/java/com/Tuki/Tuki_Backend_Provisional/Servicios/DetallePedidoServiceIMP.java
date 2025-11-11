@@ -27,6 +27,7 @@ public class DetallePedidoServiceIMP implements DetallePedidoService {
         detalle.setProducto(producto);
         detalle.setCantidad(cantidad);
         detalle.calcularSubtotal();
+        productoRepository.save(producto);
         return detalle;
     }
 }

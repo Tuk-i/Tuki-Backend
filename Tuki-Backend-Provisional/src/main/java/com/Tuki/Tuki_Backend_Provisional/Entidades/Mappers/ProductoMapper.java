@@ -38,7 +38,7 @@ public class ProductoMapper implements BaseMapper<Producto, ProductoPostDTO, Pro
             producto.setPrecio(dto.precio());
         }
 
-        if (dto.stock() != null && !dto.stock().equals(producto.getStock())) {
+        if (dto.stock() != null && dto.stock().equals(producto.getStock())) {
             producto.setStock(dto.stock());
         }
 

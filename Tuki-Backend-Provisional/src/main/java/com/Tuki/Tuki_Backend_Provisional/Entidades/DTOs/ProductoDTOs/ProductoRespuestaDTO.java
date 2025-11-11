@@ -6,7 +6,7 @@ public record ProductoRespuestaDTO (
         Long id,
         String nombre,
         double precio,
-        Long stock,
+        Integer stock,
         String urlImagen,
         String categoria
 ){}

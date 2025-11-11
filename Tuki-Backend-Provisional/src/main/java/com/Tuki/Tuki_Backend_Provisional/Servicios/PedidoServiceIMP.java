@@ -1,7 +1,7 @@
 package com.Tuki.Tuki_Backend_Provisional.Servicios;
 
-import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.Carrito.CarritoDTO;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.Carrito.ItemCarritoDTO;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.CarritoDTOs.CarritoDTO;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.CarritoDTOs.ItemCarritoDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.PedidoDTOs.PedidoRespuestaDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.PedidoDTOs.PedidoUpdateDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DetallePedido;
@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -106,11 +108,30 @@ public class PedidoServiceIMP implements PedidoService {
         Pedido pedido = pedidoRepository.findById(dto.pedidoId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido no encontrado"));
 
+        List<String> valoresValidos = Arrays.stream(Estado.values())
+                .map(Enum::name)
+                .toList();
+
+        if (!valoresValidos.contains(dto.nuevoEstado())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Estado invalido | PENDIENTE | CONFIRMADO | CANCELADO | TERMINADO");
+        }
+
         pedidoMapper.actualizarEstado(pedido, dto);
+        if (pedido.getEstado()== Estado.CANCELADO){
+            recuperarStock(pedido);
+        }
         pedidoRepository.save(pedido);
+
 
         PedidoRespuestaDTO respuesta = pedidoMapper.crearPedidoDTO(pedido);
         return ResponseEntity.ok(respuesta);
+    }
+
+    private void recuperarStock(Pedido pedido){
+        List<DetallePedido> detalles = pedido.getDetalles();
+        for (DetallePedido detallePedido: detalles){
+            detallePedido.recuperarStock();
+        }
     }
 
 }

@@ -22,7 +22,14 @@ public class DetallePedido extends Base{
 
     public void calcularSubtotal(){
         if (producto != null && cantidad > 0){
+            int i = producto.getStock() - cantidad;
+            producto.setStock(i);
             subtotal = producto.getPrecio() * cantidad;
         }
+    }
+
+    public void recuperarStock(){
+        int i = producto.getStock() + cantidad;
+        producto.setStock(i);
     }
 }

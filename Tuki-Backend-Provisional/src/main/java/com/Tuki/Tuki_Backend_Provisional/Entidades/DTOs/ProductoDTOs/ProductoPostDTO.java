@@ -13,7 +13,7 @@ public record ProductoPostDTO(
         @NotNull(message = "El precio es obligatorio")
         Double precio,
 
-        Long stock,
+        Integer stock,
 
         String urlImagen,
 
