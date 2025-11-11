@@ -5,6 +5,7 @@ import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.PedidoDTOs.PedidoRespues
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.PedidoDTOs.PedidoUpdateDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Enum.Estado;
 import com.Tuki.Tuki_Backend_Provisional.Servicios.IntefacesServicios.PedidoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pedidos")
+@RequestMapping("/api/pedidos")
 public class PedidoController {
 
     @Autowired
@@ -39,7 +40,7 @@ public class PedidoController {
     }
 
     @PutMapping("/estado")
-    public ResponseEntity<?> actualizarEstado(@RequestBody PedidoUpdateDTO dto) {
+    public ResponseEntity<?> actualizarEstado(@RequestBody @Valid PedidoUpdateDTO dto) {
         return pedidoService.actualizarEstadoPedido(dto);
     }
 }
