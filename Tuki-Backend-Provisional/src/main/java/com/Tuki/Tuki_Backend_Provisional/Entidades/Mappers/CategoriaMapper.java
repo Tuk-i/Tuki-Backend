@@ -1,4 +1,4 @@
-package com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.Mappers;
+package com.Tuki.Tuki_Backend_Provisional.Entidades.Mappers;
 
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Categoria;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.CategoriaDTOs.CategoriaPostDTO;

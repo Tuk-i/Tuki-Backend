@@ -13,7 +13,7 @@ public class GestionadorDeExepcionesREST {
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<ErrorDTO> manejarResponseStatus(ResponseStatusException ex, HttpServletRequest request) {
         ErrorDTO error = new ErrorDTO(
-                ex.getReason(),            // ruta
+                ex.getReason(),
                 ex.getStatusCode().value()
         );
         return ResponseEntity.status(ex.getStatusCode()).body(error);

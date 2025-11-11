@@ -1,8 +1,7 @@
 package com.Tuki.Tuki_Backend_Provisional.Servicios;
 
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Categoria;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.ErrorDTO;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.Mappers.ProductoMapper;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.Mappers.ProductoMapper;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.ProductoDTOs.ProductoUpdateDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Producto;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.ProductoDTOs.ProductoPostDTO;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductoServiceIMP extends BaseServiceImpl<Producto, Long, ProductoPostDTO, ProductoUpdateDTO, ProductoRespuestaDTO> implements ProductoService {

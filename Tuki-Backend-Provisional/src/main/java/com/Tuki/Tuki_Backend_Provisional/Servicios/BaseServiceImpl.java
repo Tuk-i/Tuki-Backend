@@ -1,7 +1,7 @@
 package com.Tuki.Tuki_Backend_Provisional.Servicios;
 
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Base;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.Mappers.BaseMapper;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.Mappers.BaseMapper;
 import com.Tuki.Tuki_Backend_Provisional.Repositorys.BaseRepository;
 import com.Tuki.Tuki_Backend_Provisional.Servicios.IntefacesServicios.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;

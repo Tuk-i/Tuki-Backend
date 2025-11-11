@@ -1,4 +1,4 @@
-package com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.Mappers;
+package com.Tuki.Tuki_Backend_Provisional.Entidades.Mappers;
 
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.ProductoDTOs.ProductoUpdateDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Producto;

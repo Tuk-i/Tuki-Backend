@@ -1,4 +1,4 @@
-package com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.Mappers;
+package com.Tuki.Tuki_Backend_Provisional.Entidades.Mappers;
 
 
 public interface BaseMapper<E, DTOPost, DTOUpdate, DTOrespueta > {

@@ -1,4 +1,4 @@
-package com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.Mappers;
+package com.Tuki.Tuki_Backend_Provisional.Entidades.Mappers;
 
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Enum.Rol;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.UsuarioDTOs.UsuarioRespuestaDTO;

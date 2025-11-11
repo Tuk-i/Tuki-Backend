@@ -2,8 +2,7 @@ package com.Tuki.Tuki_Backend_Provisional.Servicios;
 
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.UsuarioDTOs.UsuarioLoginDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Usuario;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.ErrorDTO;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.Mappers.UsuarioMapper;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.Mappers.UsuarioMapper;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.UsuarioDTOs.UsuarioRespuestaDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.UsuarioDTOs.UsuarioPostDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.UsuarioDTOs.UsuarioUpdateDTO;
