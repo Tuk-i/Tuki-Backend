@@ -43,12 +43,12 @@ public class DetallePedidoServiceIMP implements DetallePedidoService {
 
     @Override
     public void recuperarStockYGuardar(DetallePedido detalle) {
-        Producto producto = productoRepository.findById(detalle.getProducto().getId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producto no encontrado"));
-
         if (detalle.getProducto() == null) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "El producto no está cargado en el detalle");
         }
+
+        Producto producto = productoRepository.findById(detalle.getProducto().getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producto no encontrado"));
 
         producto.setStock(producto.getStock() + detalle.getCantidad());
         productoRepository.save(producto);

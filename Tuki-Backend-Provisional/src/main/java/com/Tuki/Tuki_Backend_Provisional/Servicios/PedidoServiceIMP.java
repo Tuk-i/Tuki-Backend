@@ -9,6 +9,7 @@ import com.Tuki.Tuki_Backend_Provisional.Entidades.Enum.Estado;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Mappers.PedidoMapper;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Pedido;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Usuario;
+import com.Tuki.Tuki_Backend_Provisional.Repositorys.DetallePedidoRepository;
 import com.Tuki.Tuki_Backend_Provisional.Repositorys.PedidoRepository;
 import com.Tuki.Tuki_Backend_Provisional.Repositorys.UsuarioRepository;
 import com.Tuki.Tuki_Backend_Provisional.Servicios.IntefacesServicios.DetallePedidoService;
@@ -35,6 +36,9 @@ public class PedidoServiceIMP implements PedidoService {
 
     @Autowired
     DetallePedidoService detallePedidoService;
+
+    @Autowired
+    DetallePedidoRepository detallePedidoRepository;
 
     @Autowired
     PedidoMapper pedidoMapper;
@@ -88,15 +92,21 @@ public class PedidoServiceIMP implements PedidoService {
         Pedido pedido = new Pedido();
         pedido.setFecha(LocalDate.now());
         pedido.setEstado(Estado.PENDIENTE);
+        pedido.setUsuario(usuario);
 
         for (ItemCarritoDTO item: carritoDTO.items()){
             DetallePedido detalle = detallePedidoService.crearDetalle(item.productoId(),item.cantidad());
+            detalle.setPedido(pedido);
             pedido.agregarDetalle(detalle);
         }
 
-        pedido.setUsuario(usuario);
         pedido.calcularTotal();
         pedidoRepository.save(pedido);
+
+        for (DetallePedido detalle: pedido.getDetalles()){
+            detallePedidoRepository.save(detalle);
+        }
+
         PedidoRespuestaDTO dto = pedidoMapper.crearPedidoDTO(pedido);
 
         return ResponseEntity.status(HttpStatus.CREATED)
