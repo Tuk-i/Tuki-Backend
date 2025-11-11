@@ -108,30 +108,24 @@ public class PedidoServiceIMP implements PedidoService {
         Pedido pedido = pedidoRepository.findById(dto.pedidoId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido no encontrado"));
 
-        List<String> valoresValidos = Arrays.stream(Estado.values())
-                .map(Enum::name)
-                .toList();
+        List<Estado> valoresValidos = Arrays.asList(Estado.values());
 
         if (!valoresValidos.contains(dto.nuevoEstado())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Estado invalido | PENDIENTE | CONFIRMADO | CANCELADO | TERMINADO");
         }
 
         pedidoMapper.actualizarEstado(pedido, dto);
-        if (pedido.getEstado()== Estado.CANCELADO){
-            recuperarStock(pedido);
+
+        if (pedido.getEstado() == Estado.CANCELADO) {
+            List<DetallePedido> detalles = detallePedidoService.buscarPorPedido(pedido.getId());
+            pedido.setDetalles(detalles);
+            for (DetallePedido detalle : pedido.getDetalles()) {
+                detallePedidoService.recuperarStockYGuardar(detalle);
+            }
         }
+
         pedidoRepository.save(pedido);
-
-
         PedidoRespuestaDTO respuesta = pedidoMapper.crearPedidoDTO(pedido);
         return ResponseEntity.ok(respuesta);
     }
-
-    private void recuperarStock(Pedido pedido){
-        List<DetallePedido> detalles = pedido.getDetalles();
-        for (DetallePedido detallePedido: detalles){
-            detallePedido.recuperarStock();
-        }
-    }
-
 }

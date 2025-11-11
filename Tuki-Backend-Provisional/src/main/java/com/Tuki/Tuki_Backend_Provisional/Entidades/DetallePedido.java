@@ -1,6 +1,7 @@
 package com.Tuki.Tuki_Backend_Provisional.Entidades;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
 
@@ -17,8 +18,12 @@ public class DetallePedido extends Base{
     @ManyToOne
     private Pedido pedido;
 
-    @ManyToOne
+//    @ManyToOne
+//    private Producto producto;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     private Producto producto;
+
 
     public void calcularSubtotal(){
         if (producto != null && cantidad > 0){
@@ -28,8 +33,8 @@ public class DetallePedido extends Base{
         }
     }
 
-    public void recuperarStock(){
-        int i = producto.getStock() + cantidad;
-        producto.setStock(i);
-    }
+//    public void recuperarStock(){
+//        int i = producto.getStock() + cantidad;
+//        producto.setStock(i);
+//    }
 }

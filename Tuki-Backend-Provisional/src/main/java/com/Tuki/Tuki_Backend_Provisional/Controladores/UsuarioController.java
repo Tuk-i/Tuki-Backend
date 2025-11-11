@@ -62,5 +62,4 @@ public class UsuarioController {
         usuarioServiceIMP.eliminar(id); // ya lanza excepción si no existe
         return ResponseEntity.ok("Usuario marcado como eliminado");
     }
-
 }
