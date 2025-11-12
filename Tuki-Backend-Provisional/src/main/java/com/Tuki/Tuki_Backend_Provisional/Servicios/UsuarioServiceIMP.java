@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import com.Tuki.Tuki_Backend_Provisional.CosasUtilesImportantes.PasswordHasher;
 
 import java.util.Optional;
 
@@ -36,7 +37,13 @@ public class UsuarioServiceIMP extends BaseServiceImpl<Usuario, Long, UsuarioPos
     public ResponseEntity<?> login(UsuarioLoginDTO dto) {
         Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(dto.email());
 
-        if (usuarioOpt.isEmpty() || !usuarioOpt.get().getPassword().equals(dto.password())) {
+//        if (usuarioOpt.isEmpty() || !usuarioOpt.get().getPassword().equals(dto.password())) {
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas");
+//        }
+
+        String passwordHash = PasswordHasher.hash(dto.password());
+
+        if (usuarioOpt.isEmpty() || !usuarioOpt.get().getPassword().equals(passwordHash)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas");
         }
 

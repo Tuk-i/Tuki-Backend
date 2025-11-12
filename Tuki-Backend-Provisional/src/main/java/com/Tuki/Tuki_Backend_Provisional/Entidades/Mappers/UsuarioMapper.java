@@ -6,6 +6,7 @@ import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.UsuarioDTOs.UsuarioPostD
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Usuario;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.UsuarioDTOs.UsuarioUpdateDTO;
 import org.springframework.stereotype.Component;
+import com.Tuki.Tuki_Backend_Provisional.CosasUtilesImportantes.PasswordHasher;
 
 @Component
 public class UsuarioMapper implements BaseMapper<Usuario, UsuarioPostDTO, UsuarioUpdateDTO, UsuarioRespuestaDTO> {
@@ -14,7 +15,10 @@ public class UsuarioMapper implements BaseMapper<Usuario, UsuarioPostDTO, Usuari
         Usuario usuario = new Usuario();
         usuario.setNombre(usuarioPostDTO.nombre());
         usuario.setEmail(usuarioPostDTO.email());
-        usuario.setPassword(usuarioPostDTO.password());
+        //APLICO SHA
+        // usuario.setPassword(usuarioPostDTO.password());
+
+        usuario.setPassword(PasswordHasher.hash(usuarioPostDTO.password()));
         usuario.setRol(Rol.CLIENTE);
         return usuario;
     }
@@ -35,8 +39,15 @@ public class UsuarioMapper implements BaseMapper<Usuario, UsuarioPostDTO, Usuari
             usuario.setEmail(dto.email());
         }
 
-        if (dto.password() != null && !dto.password().isBlank() && !dto.password().equals(usuario.getPassword())){
-            usuario.setPassword(dto.password());
+//        if (dto.password() != null && !dto.password().isBlank() && !dto.password().equals(usuario.getPassword())){
+//            usuario.setPassword(dto.password());
+//        }
+
+        if (dto.password() != null && !dto.password().isBlank()){
+            String passwordHash = PasswordHasher.hash(dto.password());
+            if (!passwordHash.equals(usuario.getPassword())){
+                usuario.setPassword(passwordHash);
+            }
         }
     }
 }
