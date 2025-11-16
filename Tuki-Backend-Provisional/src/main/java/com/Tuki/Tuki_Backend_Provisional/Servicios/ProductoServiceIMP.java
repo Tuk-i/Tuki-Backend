@@ -31,6 +31,11 @@ public class ProductoServiceIMP extends BaseServiceImpl<Producto, Long, Producto
     // Crea un producto y la vicula con la categoria correspondiente
     @Override
     public ProductoRespuestaDTO crear(ProductoPostDTO dto){
+
+        if (dto.categoriaId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Debes ingresar una categoría");
+        }
+
         Categoria categoria = categoriaRepository.findById(dto.categoriaId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "La categoría no existe"));
 

@@ -3,7 +3,6 @@ package com.Tuki.Tuki_Backend_Provisional.CosasUtilesImportantes;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.ErrorDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -21,24 +20,14 @@ public class GestionadorDeExepcionesREST {
         return ResponseEntity.status(ex.getStatusCode()).body(error);
     }
 
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ResponseEntity<ErrorDTO> manejarValidacion(MethodArgumentNotValidException ex) {
-//        String mensaje = ex.getBindingResult().getFieldErrors().stream()
-//                .map(error -> error.getField() + ": " + error.getDefaultMessage())
-//                .findFirst()
-//                .orElse("Error de validación");
-//        return ResponseEntity.badRequest().body(new ErrorDTO(mensaje, 400));
-//    }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorDTO> manejarValidacion(MethodArgumentNotValidException ex) {
+        String mensaje = ex.getBindingResult().getFieldErrors().stream()
+                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .findFirst()
+                .orElse("Error de validación");
 
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ErrorDTO> manejarValidacion(Exception ex, HttpServletRequest request) {
-//        String mensaje = ex.getBindingResult().getFieldErrors().stream()
-//                .map(error -> error.getField() + ": " + error.getDefaultMessage())
-//                .findFirst()
-//                .orElse("Error de validación");
-//
-//        ErrorDTO error = new ErrorDTO(mensaje, 400);
-//        ex.printStackTrace();
-//        return ResponseEntity.badRequest().body(error);
-//    }
+        return ResponseEntity.badRequest().body(new ErrorDTO(mensaje, 400));
+    }
+
 }

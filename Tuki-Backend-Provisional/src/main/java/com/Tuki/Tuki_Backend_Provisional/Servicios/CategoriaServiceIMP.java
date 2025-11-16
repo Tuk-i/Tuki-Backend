@@ -87,7 +87,7 @@ public class CategoriaServiceIMP extends BaseServiceImpl<Categoria, Long, Catego
 
     // Lista todos los productos de una categoria en especifico
     public ResponseEntity<?> listarTodosLosProductos(Long id){
-            Categoria categoria = buscarPorId(id);
+        Categoria categoria = buscarPorId(id);
         return ResponseEntity.ok(construirCategoriaRespuesta(categoria,this::listarProductos));
     }
 
@@ -140,7 +140,7 @@ public class CategoriaServiceIMP extends BaseServiceImpl<Categoria, Long, Catego
 //        return categoriaRespuestaDTO;
 //    }
 
-//    @Override
+    //    @Override
 //    public ResponseEntity<?> registrar(CategoriaPostDTO dto) {
 //        boolean existe = categoriaRepository.findByNombre(dto.nombre()).isPresent();
 //        return registrarConValidacion(existe, "Nombre de categoría ya registrado", dto);

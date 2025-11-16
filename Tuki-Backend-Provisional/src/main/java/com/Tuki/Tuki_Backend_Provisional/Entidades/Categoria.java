@@ -20,7 +20,7 @@ public class Categoria extends Base{
     private String urlImagen;
 
 
-//    @OneToMany(mappedBy = "categoria", fetch = FetchType.EAGER)
+    //    @OneToMany(mappedBy = "categoria", fetch = FetchType.EAGER)
 //    @OneToMany(mappedBy = "categoria", cascade = (CascadeType.REFRESH))
 //    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     @OneToMany(mappedBy = "categoria")

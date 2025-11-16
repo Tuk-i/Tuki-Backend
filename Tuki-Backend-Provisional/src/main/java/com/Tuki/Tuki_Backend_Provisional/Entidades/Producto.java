@@ -18,7 +18,7 @@ public class Producto extends Base{
     private String urlImagen;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
+    @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 
 

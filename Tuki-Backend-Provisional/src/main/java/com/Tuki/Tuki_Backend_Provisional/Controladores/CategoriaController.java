@@ -6,6 +6,7 @@ import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.CategoriaDTOs.CategoriaR
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.CategoriaDTOs.CategoriaUpdateDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.MensajeDTO;
 import com.Tuki.Tuki_Backend_Provisional.Servicios.CategoriaServiceIMP;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +57,7 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<?> registra(@RequestBody CategoriaPostDTO dto) {
+    public ResponseEntity<?> registra(@Valid @RequestBody CategoriaPostDTO dto) {
         return categoriaService.registrar(dto);
     }
 

@@ -6,6 +6,7 @@ import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.ProductoDTOs.ProductoRes
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.ProductoDTOs.ProductoUpdateDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Producto;
 import com.Tuki.Tuki_Backend_Provisional.Servicios.IntefacesServicios.ProductoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class ProductoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> registrar(@RequestBody ProductoPostDTO dto) {
+    public ResponseEntity<?> registrar(@Valid @RequestBody ProductoPostDTO dto) {
         return productoService.registrar(dto);
     }
 

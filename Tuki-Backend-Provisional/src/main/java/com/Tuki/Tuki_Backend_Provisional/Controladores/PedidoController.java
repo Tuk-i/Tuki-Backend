@@ -35,7 +35,7 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> crear(@RequestBody CarritoDTO dto) {
+    public ResponseEntity<?> crear(@Valid @RequestBody CarritoDTO dto) {
         return pedidoService.crearPedidoDesdeCarrito(dto);
     }
 
