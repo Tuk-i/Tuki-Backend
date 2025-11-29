@@ -1,6 +1,6 @@
 package com.Tuki.Tuki_Backend_Provisional.Controladores;
 
-import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.CarritoDTOs.CarritoDTO;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.PedidoDTOs.PedidoPostDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.PedidoDTOs.PedidoRespuestaDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.PedidoDTOs.PedidoUpdateDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.Enum.Estado;
@@ -35,7 +35,7 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> crear(@Valid @RequestBody CarritoDTO dto) {
+    public ResponseEntity<?> crear(@Valid @RequestBody PedidoPostDTO dto) {
         return pedidoService.crearPedidoDesdeCarrito(dto);
     }
 

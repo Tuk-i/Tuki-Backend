@@ -15,7 +15,7 @@ public class UsuarioMapper implements BaseMapper<Usuario, UsuarioPostDTO, Usuari
         Usuario usuario = new Usuario();
         usuario.setNombre(usuarioPostDTO.nombre());
         usuario.setEmail(usuarioPostDTO.email());
-        usuario.setPassword(usuarioPostDTO.password());
+//        usuario.setPassword(usuarioPostDTO.password());
         //APLICO SHA
         // usuario.setPassword(usuarioPostDTO.password());
 

@@ -1,4 +1,4 @@
-package com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.CarritoDTOs;
+package com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.PedidoDTOs;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

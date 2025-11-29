@@ -1,7 +1,6 @@
 package com.Tuki.Tuki_Backend_Provisional.CosasUtilesImportantes;
 
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.ErrorDTO;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,20 +8,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestControllerAdvice
-public class GestionadorDeExepcionesREST {
+public class GestionadorDeExcepcionesREST {
 
     @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<ErrorDTO> manejarResponseStatus(ResponseStatusException ex, HttpServletRequest request) {
+    public ResponseEntity<ErrorDTO> manejarResponseStatus(ResponseStatusException exception) {
         ErrorDTO error = new ErrorDTO(
-                ex.getReason(),
-                ex.getStatusCode().value()
+                exception.getReason(),
+                exception.getStatusCode().value()
         );
-        return ResponseEntity.status(ex.getStatusCode()).body(error);
+        return ResponseEntity.status(exception.getStatusCode()).body(error);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorDTO> manejarValidacion(MethodArgumentNotValidException ex) {
-        String mensaje = ex.getBindingResult().getFieldErrors().stream()
+    public ResponseEntity<ErrorDTO> manejarValidacion(MethodArgumentNotValidException exception) {
+        String mensaje = exception.getBindingResult().getFieldErrors().stream()
                 .map(error -> error.getField() + ": " + error.getDefaultMessage())
                 .findFirst()
                 .orElse("Error de validación");

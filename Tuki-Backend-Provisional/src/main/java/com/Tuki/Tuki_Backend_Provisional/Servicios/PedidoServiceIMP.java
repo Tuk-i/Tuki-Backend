@@ -1,7 +1,7 @@
 package com.Tuki.Tuki_Backend_Provisional.Servicios;
 
-import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.CarritoDTOs.CarritoDTO;
-import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.CarritoDTOs.ItemCarritoDTO;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.PedidoDTOs.PedidoPostDTO;
+import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.PedidoDTOs.ItemCarritoDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.PedidoDTOs.PedidoRespuestaDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DTOs.PedidoDTOs.PedidoUpdateDTO;
 import com.Tuki.Tuki_Backend_Provisional.Entidades.DetallePedido;
@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -85,8 +84,8 @@ public class PedidoServiceIMP implements PedidoService {
 
 
     @Override
-    public ResponseEntity<?> crearPedidoDesdeCarrito(CarritoDTO carritoDTO) {
-        Usuario usuario = usuarioRepository.findById(carritoDTO.usuarioId())
+    public ResponseEntity<?> crearPedidoDesdeCarrito(PedidoPostDTO pedidoPostDTO) {
+        Usuario usuario = usuarioRepository.findById(pedidoPostDTO.usuarioId())
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
 
         Pedido pedido = new Pedido();
@@ -94,7 +93,7 @@ public class PedidoServiceIMP implements PedidoService {
         pedido.setEstado(Estado.PENDIENTE);
         pedido.setUsuario(usuario);
 
-        for (ItemCarritoDTO item: carritoDTO.items()){
+        for (ItemCarritoDTO item: pedidoPostDTO.items()){
             DetallePedido detalle = detallePedidoService.crearDetalle(item.productoId(),item.cantidad());
             detalle.setPedido(pedido);
             pedido.agregarDetalle(detalle);
@@ -125,6 +124,7 @@ public class PedidoServiceIMP implements PedidoService {
         }
 
         pedidoMapper.actualizarEstado(pedido, dto);
+        // estado del pedido cambiado
 
         if (pedido.getEstado() == Estado.CANCELADO) {
             List<DetallePedido> detalles = detallePedidoService.buscarPorPedido(pedido.getId());

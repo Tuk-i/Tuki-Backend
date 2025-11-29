@@ -13,5 +13,4 @@ public record UsuarioPostDTO(
 
         @NotBlank(message = "La contraseña no puede estar vacía")
         String password
-
 ){}

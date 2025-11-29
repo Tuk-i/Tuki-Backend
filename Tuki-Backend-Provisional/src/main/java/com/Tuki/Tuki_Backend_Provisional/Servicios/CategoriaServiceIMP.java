@@ -42,10 +42,9 @@ public class CategoriaServiceIMP extends BaseServiceImpl<Categoria, Long, Catego
     }
 
     // Funcion que crea que crea una lista de CategoriaRespuestaDTO junto con la lista de productos pertienentes
-    private List<CategoriaRespuestaDTO> construirRespuesta(List<Categoria> categorias,  Function<Long, List<ProductoRespuestaDTO>> buscarProductos
-    ){
+    private List<CategoriaRespuestaDTO> construirRespuesta(List<Categoria> categorias, Function<Long, List<ProductoRespuestaDTO>> buscarProductos) {
         List<CategoriaRespuestaDTO> listaRespuestas = new ArrayList<>();
-        for (Categoria categoria: categorias){
+        for (Categoria categoria : categorias) {
             // soy re copado, pase un metodo como parametro ajajajajajaj
             CategoriaRespuestaDTO dto = construirCategoriaRespuesta(categoria, buscarProductos);
             listaRespuestas.add(dto);
@@ -79,12 +78,6 @@ public class CategoriaServiceIMP extends BaseServiceImpl<Categoria, Long, Catego
         return construirRespuesta(categorias, this::listarProductos);
     }
 
-//    // Metodo que verifica la exisencia de una categoria
-//    private Categoria verificarExisencia(Long id){
-//        return categoriaRepository.findById(id)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoría no encontrada"));
-//    }
-
     // Lista todos los productos de una categoria en especifico
     public ResponseEntity<?> listarTodosLosProductos(Long id){
         Categoria categoria = buscarPorId(id);
@@ -103,49 +96,6 @@ public class CategoriaServiceIMP extends BaseServiceImpl<Categoria, Long, Catego
         return ResponseEntity.ok(construirCategoriaRespuesta(categoria,this::listarProductosElminados));
     }
 
-//    @Override
-//    public List<CategoriaRespuestaDTO> listarTodos(){
-//        List<Categoria> categorias =  baseRepository.findAllByOrderByIdAsc();
-//        List<CategoriaRespuestaDTO> listaRespuesta = new ArrayList<>();
-//        for (Categoria c: categorias){
-//            CategoriaRespuestaDTO categoriaRespuesta = new CategoriaRespuestaDTO(
-//                    c.getId(),
-//                    c.getNombre(),
-//                    c.getDescripcion(),
-//                    listarProductos(c.getId())
-//                    );
-//            listaRespuesta.add(categoriaRespuesta);
-//        }
-//        return listaRespuesta;
-//    }
-
-//    @Override
-//    public List<CategoriaRespuestaDTO> listarActivos() {
-//        return mapear(baseRepository.findByEliminadoFalseOrderByIdAsc());
-//    }
-
-//    @Override
-//    public List<CategoriaRespuestaDTO> listarEliminados(){
-//        return mapear(baseRepository.findByEliminadoTrueOrderByIdAsc());
-//    }
-
-
-
-//    @Override
-//    public CategoriaRespuestaDTO crear(CategoriaPostDTO dto) {
-//        Categoria categoria = baseMapper.dtoToEntity(dto);
-//        categoria = baseRepository.save(categoria);
-//        CategoriaRespuestaDTO categoriaRespuestaDTO = baseMapper.entityToDTO(categoria);
-//        categoriaRespuestaDTO.productoRespuestaDTOS(ListarProductos(categoria.getId()));
-//        return categoriaRespuestaDTO;
-//    }
-
-    //    @Override
-//    public ResponseEntity<?> registrar(CategoriaPostDTO dto) {
-//        boolean existe = categoriaRepository.findByNombre(dto.nombre()).isPresent();
-//        return registrarConValidacion(existe, "Nombre de categoría ya registrado", dto);
-//    }
-    //
     @Override
     public ResponseEntity<?> registrar(CategoriaPostDTO dto) {
         CategoriaRespuestaDTO creado = registrarConValidacion(categoriaRepository.findByNombre(dto.nombre()).isPresent(), "Nombre de categoría ya registrado", dto);
@@ -169,27 +119,4 @@ public class CategoriaServiceIMP extends BaseServiceImpl<Categoria, Long, Catego
         CategoriaRespuestaDTO actualizado = super.actualizar(id, dto);
         return ResponseEntity.ok(actualizado);
     }
-
-
-//    @Override
-//    public ResponseEntity<?> editar(Long id, CategoriaUpdateDTO dto) {
-//        Optional<Categoria> categoria = categoriaRepository.findById(id);
-//        if (categoria.isEmpty()) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//                    .body(new ErrorDTO("Categoría no encontrada", ex.getStatusCode().value()));
-//        }
-//
-//        if (categoria.get().getEliminado()) {
-//            throw new ResponseStatusException(HttpStatus.CONFLICT, "La categoría está eliminada");
-//        }
-//
-//        Optional<Categoria> existente = categoriaRepository.findByNombre(dto.nombre());
-//        if (existente.isPresent() && !existente.get().getId().equals(id)) {
-//            return ResponseEntity.status(HttpStatus.CONFLICT)
-//                    .body(new ErrorDTO("El nombre de categoría ya está en uso", ex.getStatusCode().value()));
-//        }
-//
-//        CategoriaRespuestaDTO actualizado = super.actualizar(id, dto);
-//        return ResponseEntity.ok(actualizado);
-//    }
 }
